@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(libUtils)
 
+#do not append lib to library name
+set(CMAKE_STATIC_LIBRARY_PREFIX "")
+
 set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES MutexWithOwnersip.h library.cpp.cpp)
@@ -16,8 +19,4 @@ add_custom_target(install_${PROJECT_NAME}
         COMMENT "Installing ${PROJECT_NAME}")
 
 ####### Unit Tests ##############
-set (GTEST_ROOT /usr)
-find_package(GTest REQUIRED)
-set(UnitTest_SOURCE_FILES GTest/Main.cpp GTest/MutexWithOwnershipTest.cpp)
-add_executable(UnitTest ${UnitTest_SOURCE_FILES})
-target_link_libraries(UnitTest GTest::GTest GTest::Main libUtils)
+add_subdirectory(GTest)
